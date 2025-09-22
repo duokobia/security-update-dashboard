@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData } from '../../../lib/mockData';
+import ConflictMap from '@/components/ConflictMap';
 
 export default function AsiaPacificPage() {
   const [isClient, setIsClient] = useState(false);
@@ -24,6 +25,29 @@ export default function AsiaPacificPage() {
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Asia Pacific Conflicts</h1>
+           {/* Map Section */}
+                    <div className="mb-8">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
+          
+                      {/* <ConflictMap conflicts={conflicts} region="Europe" /> */}
+                      <ConflictMap conflicts={conflicts} region="Asia Pacific" />
+                      
+                      {/* Legend */}
+                      <div className="flex flex-wrap items-center justify-center mt-4 gap-4">
+                        <div className="flex items-center">
+                          <div className="w-4 h-4 bg-red-600 rounded-full mr-2"></div>
+                          <span className="text-sm">High/Critical Intensity</span>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                          <span className="text-sm">Medium Intensity</span>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                          <span className="text-sm">Low Intensity</span>
+                        </div>
+                      </div>
+                    </div>
           <div className="grid grid-cols-1 gap-6">
             {conflicts.map((conflict) => (
               <div key={conflict.id} className="bg-white shadow overflow-hidden rounded-lg">

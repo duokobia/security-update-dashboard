@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData } from '../../../lib/mockData';
+import ConflictMap from '../../../components/ConflictMap';
 
 export default function MiddleEastPage() {
   const [isClient, setIsClient] = useState(false);
@@ -18,6 +19,8 @@ export default function MiddleEastPage() {
     }
   }, [router]);
 
+  const conflicts = conflictData.filter(data => data.zone === 'Middle East');
+
   if (!isClient) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -26,14 +29,36 @@ export default function MiddleEastPage() {
     );
   }
 
-  const conflicts = conflictData.filter(data => data.zone === 'Middle East');
-
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Middle East Conflicts</h1>
           
+          {/* Map Section */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
+            {/* <ConflictMap conflicts={conflicts} /> */}
+            <ConflictMap conflicts={conflicts} region="Middle East" />
+            {/* Legend */}
+            <div className="flex flex-wrap items-center justify-center mt-4 gap-4">
+              <div className="flex items-center">
+                <div className="w-4 h-4 bg-red-600 rounded-full mr-2"></div>
+                <span className="text-sm">High/Critical Intensity</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                <span className="text-sm">Medium Intensity</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                <span className="text-sm">Low Intensity</span>
+              </div>
+            </div>
+          </div>
+
+          
+          {/* Conflicts List */}
           <div className="grid grid-cols-1 gap-6">
             {conflicts.map((conflict) => (
               <div key={conflict.id} className="bg-white shadow overflow-hidden rounded-lg">
@@ -43,9 +68,9 @@ export default function MiddleEastPage() {
                       {conflict.country}
                     </h3>
                     <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium ${
-                      conflict.intensity === 'High' ? 'bg-red-100 text-red-800' :
+                      conflict.intensity === 'High' || conflict.intensity === 'Critical' ? 'bg-red-100 text-red-800' :
                       conflict.intensity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      conflict.intensity === 'Low' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'
+                      'bg-green-100 text-green-800'
                     }`}>
                       {conflict.intensity} Intensity
                     </span>
