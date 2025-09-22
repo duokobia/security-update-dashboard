@@ -6,7 +6,7 @@ import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData } from '../../../lib/mockData';
 import ConflictMap from '@/components/ConflictMap';
 
-export default function AsiaPacificPage() {
+export default function AmericasPage() {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -24,13 +24,13 @@ export default function AsiaPacificPage() {
     <DashboardLayout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Asia Pacific Conflicts</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">Americas Conflicts</h1>
            {/* Map Section */}
                     <div className="mb-8">
                       <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
           
                       {/* <ConflictMap conflicts={conflicts} region="Europe" /> */}
-                      <ConflictMap conflicts={conflicts} region="Asia Pacific" />
+                      <ConflictMap conflicts={conflicts} region="Americas" />
                       
                       {/* Legend */}
                       <div className="flex flex-wrap items-center justify-center mt-4 gap-4">

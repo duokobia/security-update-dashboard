@@ -24,6 +24,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     { name: 'Middle East', href: '/dashboard/middle-east' },
     { name: 'Europe', href: '/dashboard/europe' },
     { name: 'Asia Pacific', href: '/dashboard/asia-pacific' },
+    { name: 'Africa', href: '/dashboard/africa' },
+    { name: 'Americas', href: '/dashboard/americas' },
   ];
 
   return (
