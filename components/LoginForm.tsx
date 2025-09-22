@@ -1,25 +1,32 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // Simple mock authentication - replace with real API later
+    // Simple mock authentication
     if (email === 'demo@example.com' && password === 'password') {
       // Simulate API call delay
       setTimeout(() => {
         setLoading(false);
-        alert('Login successful! Redirecting to dashboard...');
-        // We'll add proper routing later
+        // Store simple auth flag in localStorage
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('user', JSON.stringify({
+          name: 'Demo User',
+          email: 'demo@example.com'
+        }));
+        router.push('/dashboard');
       }, 1000);
     } else {
       setTimeout(() => {
@@ -37,7 +44,7 @@ export default function LoginForm() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Conflict Dashboard
+            Security Update Dashboard
           </p>
         </div>
         

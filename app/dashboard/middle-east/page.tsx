@@ -1,0 +1,82 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import DashboardLayout from '../../../components/DashboardLayout';
+import { conflictData } from '../../../lib/mockData';
+
+export default function MiddleEastPage() {
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+    
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    if (!isAuthenticated) {
+      router.push('/login');
+    }
+  }, [router]);
+
+  if (!isClient) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  const conflicts = conflictData.filter(data => data.zone === 'Middle East');
+
+  return (
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">Middle East Conflicts</h1>
+          
+          <div className="grid grid-cols-1 gap-6">
+            {conflicts.map((conflict) => (
+              <div key={conflict.id} className="bg-white shadow overflow-hidden rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      {conflict.country}
+                    </h3>
+                    <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium ${
+                      conflict.intensity === 'High' ? 'bg-red-100 text-red-800' :
+                      conflict.intensity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                      conflict.intensity === 'Low' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'
+                    }`}>
+                      {conflict.intensity} Intensity
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-600">{conflict.description}</p>
+                    <div className="mt-4 grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">Type</p>
+                        <p className="text-sm text-gray-900">{conflict.conflictType}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">Start Date</p>
+                        <p className="text-sm text-gray-900">
+                          {new Date(conflict.startDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                      {conflict.casualties && (
+                        <div>
+                          <p className="text-sm font-medium text-gray-500">Estimated Casualties</p>
+                          <p className="text-sm text-gray-900">{conflict.casualties.toLocaleString()}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+}
