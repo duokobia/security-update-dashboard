@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '../../components/DashboardLayout';
-import DashboardCharts from '../../components/DashboardCharts';
+import DashboardCharts from '../../components/charts/DashboardCharts';
 import { conflictData } from '../../lib/mockData';
 
 export default function Dashboard() {

@@ -2,7 +2,7 @@
 
 import PoliticalViolenceLineChart from './LineChart';
 import ConflictBarChart from './BarChart';
-import { timeSeriesData, barChartData } from '../lib/mockData';
+import { timeSeriesData, barChartData } from '../../lib/mockData';
 import ScatterChartWithCells from './ScatterChartWithCells';
 import SpecifiedDomainRadarChart from './SpecifiedDomainRadarChart';
 

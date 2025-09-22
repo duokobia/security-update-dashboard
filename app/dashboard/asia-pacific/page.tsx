@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData } from '../../../lib/mockData';
-import ConflictMap from '@/components/ConflictMap';
+import ConflictMap from '@/components/map/ConflictMap';
 
 export default function AsiaPacificPage() {
   const [isClient, setIsClient] = useState(false);
