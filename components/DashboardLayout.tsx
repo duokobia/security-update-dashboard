@@ -21,11 +21,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Middle East', href: '/dashboard/middle-east' },
-    { name: 'Europe', href: '/dashboard/europe' },
-    { name: 'Asia Pacific', href: '/dashboard/asia-pacific' },
+    { name: 'All Regions', href: '/dashboard/all-regions' },
     { name: 'Africa', href: '/dashboard/africa' },
     { name: 'Americas', href: '/dashboard/americas' },
+    { name: 'Asia Pacific', href: '/dashboard/asia-pacific' },
+    { name: 'Europe', href: '/dashboard/europe' },
+    { name: 'Middle East', href: '/dashboard/middle-east' },
   ];
 
   return (
@@ -38,7 +39,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <Link href="/dashboard" className="text-xl font-bold text-gray-900">
                 Conflict Dashboard
               </Link>
-              <div className="ml-10 flex items-baseline space-x-4">
+              <div className="ml-10 flex items-baseline space-x-2">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
