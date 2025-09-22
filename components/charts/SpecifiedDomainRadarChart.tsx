@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { BarChartData } from '../lib/mockData';
+import { BarChartData } from '../../lib/mockData';
 
 interface SpecifiedDomainRadarChartProps {
   data: BarChartData[];

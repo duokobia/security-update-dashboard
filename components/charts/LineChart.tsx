@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
   TooltipContentProps
 } from 'recharts';
-import { TimeSeriesData } from '../lib/mockData';
+import { TimeSeriesData } from '../../lib/mockData';
 
 interface PoliticalViolenceLineChartProps {
   data: TimeSeriesData[];

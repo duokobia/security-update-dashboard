@@ -13,6 +13,10 @@ export default function AllConflictsPage() {
   const [selectedIntensity, setSelectedIntensity] = useState('All');
   const [sortField, setSortField] = useState<keyof ConflictData>('country');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     setIsClient(true);
@@ -37,7 +41,6 @@ export default function AllConflictsPage() {
     const value = conflict[field];
     
     if (value === undefined || value === null) {
-      // For ascending sort, undefined goes last. For descending, undefined goes first.
       return sortDirection === 'asc' ? 
         (field === 'casualties' ? Infinity : '\uffff') : 
         (field === 'casualties' ? -Infinity : '');
@@ -73,6 +76,17 @@ export default function AllConflictsPage() {
       return 0;
     });
   }, [searchTerm, selectedZone, selectedIntensity, getSortableValue, sortField, sortDirection]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredConflicts.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const currentConflicts = filteredConflicts.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedZone, selectedIntensity, sortField, sortDirection]);
 
   const handleSort = (field: keyof ConflictData) => {
     if (sortField === field) {
@@ -114,6 +128,75 @@ export default function AllConflictsPage() {
       'Americas': 'bg-purple-50 text-purple-700 border-purple-200',
     };
     return colors[zone as keyof typeof colors] || 'bg-gray-50 text-gray-700 border-gray-200';
+  };
+
+  // Pagination controls
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+  };
+
+  const renderPaginationButtons = () => {
+    const buttons = [];
+    const maxVisiblePages = 5;
+    
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // Adjust if we're near the end
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    // First page
+    if (startPage > 1) {
+      buttons.push(
+        <button
+          key={1}
+          onClick={() => goToPage(1)}
+          className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50"
+        >
+          1
+        </button>
+      );
+      if (startPage > 2) {
+        buttons.push(<span key="ellipsis1" className="px-2">...</span>);
+      }
+    }
+
+    // Page numbers
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={`px-3 py-1 border rounded-md ${
+            currentPage === i
+              ? 'bg-blue-600 text-white border-blue-600'
+              : 'border-gray-300 hover:bg-gray-50'
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    // Last page
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        buttons.push(<span key="ellipsis2" className="px-2">...</span>);
+      }
+      buttons.push(
+        <button
+          key={totalPages}
+          onClick={() => goToPage(totalPages)}
+          className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50"
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return buttons;
   };
 
   if (!isClient) {
@@ -258,11 +341,34 @@ export default function AllConflictsPage() {
             </div>
           </div>
 
-          {/* Results Count */}
+          {/* Results Count and Controls */}
           <div className="mb-4 flex justify-between items-center">
-            <p className="text-sm text-gray-600">
-              Showing {filteredConflicts.length} of {conflictData.length} conflicts
-            </p>
+            <div className="flex items-center space-x-4">
+              <p className="text-sm text-gray-600">
+                Showing {startIndex + 1}-{Math.min(endIndex, filteredConflicts.length)} of {filteredConflicts.length} conflicts
+              </p>
+              
+              {/* Rows per page selector */}
+              <div className="flex items-center space-x-2">
+                <label htmlFor="rowsPerPage" className="text-sm text-gray-600">Rows per page:</label>
+                <select
+                  id="rowsPerPage"
+                  value={rowsPerPage}
+                  onChange={(e) => {
+                    setRowsPerPage(Number(e.target.value));
+                    setCurrentPage(1);
+                  }}
+                  className="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                >
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-600">Sort by:</span>
               <select
@@ -280,7 +386,7 @@ export default function AllConflictsPage() {
           </div>
 
           {/* Conflicts Table */}
-          <div className="bg-white shadow overflow-hidden rounded-lg">
+          <div className="bg-white shadow overflow-hidden rounded-lg mb-6">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -342,7 +448,7 @@ export default function AllConflictsPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredConflicts.map((conflict) => (
+                  {currentConflicts.map((conflict) => (
                     <tr key={conflict.id} className="hover:bg-gray-50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{conflict.country}</div>
@@ -381,6 +487,37 @@ export default function AllConflictsPage() {
               </div>
             )}
           </div>
+
+          {/* Pagination Controls */}
+          {filteredConflicts.length > 0 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+              <div className="text-sm text-gray-600">
+                Page {currentPage} of {totalPages}
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Previous
+                </button>
+                
+                <div className="flex space-x-1">
+                  {renderPaginationButtons()}
+                </div>
+                
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </DashboardLayout>

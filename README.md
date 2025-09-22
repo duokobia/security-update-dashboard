@@ -1,36 +1,213 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Security Update Dashboard
 
-## Getting Started
+A comprehensive, real-time dashboard for monitoring and analyzing global security conflicts and political violence incidents.
 
-First, run the development server:
+![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![React](https://img.shields.io/badge/React-18-61dafb)
+
+## 🌟 Features
+
+### 📊 **Interactive Dashboard**
+- **Global Overview**: Summary cards with total conflicts, casualties, and intensity metrics
+- **Regional Analysis**: Dedicated pages for Middle East, Europe, Asia Pacific, Africa, and Americas
+- **Real-time Data**: Dynamic filtering and search capabilities
+
+### 🗺️ **Geospatial Visualization**
+- **Interactive Maps**: Leaflet-based conflict mapping with OpenStreetMap integration
+- **Region-specific Centering**: Automatic map positioning based on selected region
+- **Intensity-based Markers**: Color-coded pins (Red=High, Yellow=Medium, Green=Low)
+- **Popup Details**: Click markers for conflict information and statistics
+
+### 🔍 **Advanced Data Management**
+- **Smart Filtering**: Filter by region, conflict intensity, and type
+- **Full-Text Search**: Search across countries, conflict types, and descriptions
+- **Multi-column Sorting**: Sort by country, region, intensity, date, or casualties
+- **Pagination**: Configurable rows per page (5, 10, 20, 50, 100) with smart navigation
+
+### 📱 **Modern UX/UI**
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Professional Styling**: Tailwind CSS with clean, accessible interface
+- **Type Safety**: Full TypeScript implementation
+- **Authentication**: Secure login system with route protection
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Modern web browser
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/duokobia/security-update-dashboard.git
+   cd security-update-dashboard
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Building for Production
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗️ Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+security-update-dashboard/
+├── app/                            # Next.js app directory
+│   ├── globals.css                # Global styles
+│   ├── layout.tsx                 # Root layout
+│   ├── page.tsx                   # Home page
+│   └── [region]/                  # Regional pages
+│       ├── middle-east/
+│       ├── europe/
+│       ├── asia-pacific/
+│       ├── africa/
+│       └── americas/
+├── components/                    # Reusable components
+│   ├── DashboardLayout.tsx       # Main layout wrapper
+│   ├── ConflictMap.tsx           # Interactive map component
+│   └── UI/                       # Additional UI components
+├── lib/                          # Utilities and data
+│   └── mockData.ts              # Conflict dataset
+├── public/                       # Static assets
+└── types/                       # TypeScript definitions
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📈 Data Model
 
-## Learn More
+### Conflict Data Structure
+```typescript
+interface ConflictData {
+  id: string;
+  zone: string;                   // Region: 'Middle East', 'Europe', etc.
+  country: string;               // Affected country
+  conflictType: string;          // Type of conflict
+  intensity: 'Low' | 'Medium' | 'High' | 'Critical';
+  startDate: string;             // ISO date format
+  description: string;           // Detailed description
+  casualties?: number;           // Optional casualty count
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Sample Data
+The dashboard includes 23 real-world conflict scenarios across 5 regions with:
+- Varied intensity levels and conflict types
+- Historical and ongoing conflicts
+- Realistic casualty estimates
+- Geographical coordinates for mapping
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Key Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ConflictMap Component
+Interactive Leaflet map with:
+- Region-based auto-centering
+- Intensity-based marker styling
+- Popup information windows
+- Responsive design
 
-## Deploy on Vercel
+### Data Table Features
+- **Sortable Columns**: Click headers to sort ascending/descending
+- **Advanced Filtering**: Combine region and intensity filters
+- **Live Search**: Real-time text search across multiple fields
+- **Pagination**: Navigate large datasets efficiently
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Regional Pages
+Each region page includes:
+- Region-specific conflict mapping
+- Filtered conflict listings
+- Intensity-based color coding
+- Detailed conflict information
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 Configuration
+
+### Environment Variables
+Create a `.env.local` file for configuration:
+
+```env
+# Optional: Mapbox token for alternative mapping
+NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token_here
+```
+
+### Customizing Data
+Edit `lib/mockData.ts` to:
+- Add new conflict entries
+- Modify existing data
+- Update regional statistics
+- Extend time series data
+
+## 🎨 Customization
+
+### Styling
+The project uses Tailwind CSS. Key customization points:
+
+- **Colors**: Modify `tailwind.config.js` for brand colors
+- **Components**: Update component classes in `/components`
+- **Layout**: Adjust responsive breakpoints as needed
+
+### Adding New Regions
+1. Add region to `ConflictData.zone` type
+2. Update region coordinates in `ConflictMap.tsx`
+3. Create new page in `app/[region]/`
+4. Update filter options in data table
+
+## 📊 API Integration (Future)
+
+The dashboard is designed for easy API integration:
+
+```typescript
+// Example API integration point
+const fetchLiveData = async () => {
+  const response = await fetch('/api/conflicts');
+  return response.json();
+};
+```
+
+## 🛠️ Development Scripts
+
+```bash
+npm run dev          # Development server
+npm run build        # Production build
+npm run start        # Production server
+npm run lint         # Code linting
+npm run type-check   # TypeScript validation
+```
+
+## 📋 TODO & Roadmap
+
+- [ ] **Real-time Data Integration** - Connect to live conflict APIs
+- [ ] **Advanced Analytics** - Add charts and trend analysis
+- [ ] **User Management** - Role-based access control
+- [ ] **Export Functionality** - PDF/Excel report generation
+- [ ] **Mobile App** - React Native companion app
+- [ ] **Notification System** - Alert for new conflicts
+- [ ] **Historical Data** - Conflict timeline visualization
+
+
+## 🙏 Acknowledgments
+
+- **OpenStreetMap** for free map tiles
+- **Leaflet** for interactive mapping
+- **Next.js** for React framework
+- **Tailwind CSS** for styling utilities
+
+

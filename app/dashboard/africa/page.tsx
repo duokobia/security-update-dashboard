@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData } from '../../../lib/mockData';
-import ConflictMap from '@/components/ConflictMap';
+import ConflictMap from '@/components/map/ConflictMap';
 
 export default function AfricaPage() {
   const [isClient, setIsClient] = useState(false);
@@ -18,7 +18,7 @@ export default function AfricaPage() {
 
   if (!isClient) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
-  const conflicts = conflictData.filter(data => data.zone === 'Asia Pacific');
+  const conflicts = conflictData.filter(data => data.zone === 'Africa');
 
   return (
     <DashboardLayout>
@@ -29,7 +29,7 @@ export default function AfricaPage() {
                     <div className="mb-8">
                       <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
           
-                      {/* <ConflictMap conflicts={conflicts} region="Europe" /> */}
+                    
                       <ConflictMap conflicts={conflicts} region="Africa" />
                       
                       {/* Legend */}

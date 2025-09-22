@@ -11,7 +11,7 @@ import {
   Cell,
   TooltipContentProps,
 } from 'recharts';
-import { conflictData } from '../lib/mockData';
+import { conflictData } from '../../lib/mockData';
 
 const zoneColors: Record<string, string> = {
   'Middle East': '#8884d8',
