@@ -3,19 +3,13 @@
 import PoliticalViolenceLineChart from './LineChart';
 import ConflictBarChart from './BarChart';
 import { timeSeriesData, barChartData } from '../lib/mockData';
+import ScatterChartWithCells from './ScatterChartWithCells';
+import SpecifiedDomainRadarChart from './SpecifiedDomainRadarChart';
 
 export default function DashboardCharts() {
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Conflict Analytics</h2>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Line Chart */}
-        <PoliticalViolenceLineChart data={timeSeriesData} />
-        
-        {/* Bar Chart */}
-        <ConflictBarChart data={barChartData} />
-      </div>
 
       {/* Key Metrics Summary */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -40,6 +34,19 @@ export default function DashboardCharts() {
             <div className="text-sm text-gray-600">Recent Monthly Incidents</div>
           </div>
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Line Chart */}
+        <PoliticalViolenceLineChart data={timeSeriesData} />
+        
+        {/* Bar Chart */}
+        <ConflictBarChart data={barChartData} />
+      </div>
+
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <SpecifiedDomainRadarChart data={barChartData} />
+        <ScatterChartWithCells />
       </div>
     </div>
   );

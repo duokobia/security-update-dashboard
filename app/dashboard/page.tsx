@@ -29,17 +29,6 @@ export default function Dashboard() {
     );
   }
 
-  const zones = ['Middle East', 'Europe', 'Asia Pacific', 'Africa', 'Americas'];
-  
-  const zoneStats = zones.map(zone => ({
-    name: zone,
-    count: conflictData.filter(data => data.zone === zone).length,
-    highIntensity: conflictData.filter(data => data.zone === zone && data.intensity === 'High').length,
-    casualties: conflictData
-      .filter(data => data.zone === zone)
-      .reduce((sum, conflict) => sum + (conflict.casualties || 0), 0),
-  }));
-
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -47,49 +36,9 @@ export default function Dashboard() {
           <DashboardCharts />
 
         <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Conflict Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Conflict Updates</h1>
           <p className="text-gray-600 mb-8">Global political violence monitoring and analysis</p>
           
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-            {zoneStats.map((zone) => (
-              <div key={zone.name} className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                      <span className="text-white text-lg font-bold">{zone.count}</span>
-                    </div>
-                    <div className="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">
-                          {zone.name}
-                        </dt>
-                        <dd className="text-lg font-medium text-gray-900">
-                          {zone.highIntensity} high intensity
-                        </dd>
-                        <dd className="text-sm text-gray-500">
-                          {zone.casualties.toLocaleString()} casualties
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-4 sm:px-6">
-                  <div className="text-sm">
-                    <a 
-                      href={`/dashboard/${zone.name.toLowerCase().replace(' ', '-')}`}
-                      className="font-medium text-blue-600 hover:text-blue-500"
-                    >
-                      View regional details →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-         
-
           {/* Recent Conflicts */}
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
