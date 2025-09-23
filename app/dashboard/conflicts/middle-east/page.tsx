@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardLayout from '../../../components/DashboardLayout';
-import { conflictData } from '../../../lib/mockData';
-import ConflictMap from '../../../components/map/ConflictMap';
+import { conflictData } from '@/lib/mockData';
+import Layout from '@/components/layout/Layout';
+import ConflictMap from '@/components/map/ConflictMap';
+// import DashboardLayout from '../../../components/DashboardLayout';
+// import { conflictData } from '../../../lib/mockData';
+// import ConflictMap from '../../../components/map/ConflictMap';
 
 export default function MiddleEastPage() {
   const [isClient, setIsClient] = useState(false);
@@ -30,7 +33,7 @@ export default function MiddleEastPage() {
   }
 
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Middle East Conflicts</h1>
@@ -38,7 +41,6 @@ export default function MiddleEastPage() {
           {/* Map Section */}
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
-            {/* <ConflictMap conflicts={conflicts} /> */}
             <ConflictMap conflicts={conflicts} region="Middle East" />
             {/* Legend */}
             <div className="flex flex-wrap items-center justify-center mt-4 gap-4">
@@ -102,6 +104,6 @@ export default function MiddleEastPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }

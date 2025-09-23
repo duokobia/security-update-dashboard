@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardLayout from '../../../components/DashboardLayout';
-import { conflictData } from '../../../lib/mockData';
 import ConflictMap from '@/components/map/ConflictMap';
+import Layout from '@/components/layout/Layout';
+import { conflictData } from '@/lib/mockData';
 
 export default function AsiaPacificPage() {
   const [isClient, setIsClient] = useState(false);
@@ -21,7 +21,7 @@ export default function AsiaPacificPage() {
   const conflicts = conflictData.filter(data => data.zone === 'Asia Pacific');
 
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Asia Pacific Conflicts</h1>
@@ -74,6 +74,6 @@ export default function AsiaPacificPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }

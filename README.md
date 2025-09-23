@@ -78,7 +78,7 @@ security-update-dashboard/
 │   ├── layout.tsx                 # Root layout
 │   ├── page.tsx                   # Home page
 │   └── [region]/                  # Regional pages
-│       ├── middle-east/
+│   |    ├── middle-east/
 │       ├── europe/
 │       ├── asia-pacific/
 │       ├── africa/
@@ -92,6 +92,26 @@ security-update-dashboard/
 ├── public/                       # Static assets
 └── types/                       # TypeScript definitions
 ```
+
+/app
+  /(marketing)                    # Public pages
+    /page.tsx                     # → / (landing page)
+    /features/page.tsx            # → /features
+    
+  /(auth)                         # Authentication
+    /login/page.tsx               # → /login
+    /register/page.tsx            # → /register
+    
+  /(app)                          # Main application
+    /dashboard/
+      /layout.tsx                 # Dashboard layout
+      /page.tsx                   # → /dashboard (overview)
+      /conflicts/
+        /page.tsx                 # → /dashboard/conflicts
+        /[region]/
+          /page.tsx               # → /dashboard/conflicts/africa
+      /analytics/
+        /page.tsx                 # → /dashboard/analytics
 
 ## 📈 Data Model
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardLayout from '../../components/DashboardLayout';
+import Layout from '@/components/layout/Layout';
 import DashboardCharts from '../../components/charts/DashboardCharts';
 import { conflictData } from '../../lib/mockData';
 
@@ -30,7 +30,7 @@ export default function Dashboard() {
   }
 
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           {/* Charts Section */}
           <DashboardCharts />
@@ -94,6 +94,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }

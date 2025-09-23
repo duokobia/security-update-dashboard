@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardLayout from '../../../components/DashboardLayout';
-import { conflictData } from '../../../lib/mockData';
+// import DashboardLayout from '../../../components/DashboardLayout';
+import { conflictData } from '../../../../lib/mockData';
 import ConflictMap from '@/components/map/ConflictMap';
+import Layout from '@/components/layout/Layout';
 
-export default function AmericasPage() {
+export default function AfricaPage() {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -18,18 +19,19 @@ export default function AmericasPage() {
 
   if (!isClient) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
-  const conflicts = conflictData.filter(data => data.zone === 'Americas');
+  const conflicts = conflictData.filter(data => data.zone === 'Africa');
 
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Americas Conflicts</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">Africa Conflicts</h1>
            {/* Map Section */}
                     <div className="mb-8">
                       <h2 className="text-xl font-semibold text-gray-800 mb-4">Conflict Map</h2>
           
-                      <ConflictMap conflicts={conflicts} region="Americas" />
+                    
+                      <ConflictMap conflicts={conflicts} region="Africa" />
                       
                       {/* Legend */}
                       <div className="flex flex-wrap items-center justify-center mt-4 gap-4">
@@ -73,6 +75,6 @@ export default function AmericasPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }
