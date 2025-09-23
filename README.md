@@ -74,67 +74,35 @@ npm start
 ```
 security-update-dashboard/
 ├── app/                            # Next.js app directory
-│   ├── globals.css                # Global styles
-│   ├── layout.tsx                 # Root layout
-│   ├── page.tsx                   # Home page
-│   └── [region]/                  # Regional pages
-│   |    ├── middle-east/
-│       ├── europe/
-│       ├── asia-pacific/
-│       ├── africa/
-│       └── americas/
+│   ├── (marketing)/               # Public pages
+│   │   ├── page.tsx               # → / (landing page)
+│   │   └── features/
+│   │       └── page.tsx           # → /features
+│   ├── (auth)/                    # Authentication
+│   │   ├── login/
+│   │   │   └── page.tsx           # → /login
+│   │   └── register/
+│   │       └── page.tsx           # → /register
+│   └── (app)/                     # Main application
+│       └── dashboard/
+│           ├── layout.tsx         # Dashboard layout
+│           ├── page.tsx           # → /dashboard (overview)
+│           ├── conflicts/
+│           │   ├── page.tsx       # → /dashboard/conflicts
+│           │   └── [region]/
+│           │       └── page.tsx   # → /dashboard/conflicts/africa
+│           └── analytics/
+│               └── page.tsx       # → /dashboard/analytics
 ├── components/                    # Reusable components
 │   ├── DashboardLayout.tsx       # Main layout wrapper
 │   ├── ConflictMap.tsx           # Interactive map component
 │   └── UI/                       # Additional UI components
 ├── lib/                          # Utilities and data
-│   └── mockData.ts              # Conflict dataset
+│   └── mockData.ts               # Conflict dataset
 ├── public/                       # Static assets
-└── types/                       # TypeScript definitions
+└── types/                        # TypeScript definitions
 ```
 
-/app
-  /(marketing)                    # Public pages
-    /page.tsx                     # → / (landing page)
-    /features/page.tsx            # → /features
-    
-  /(auth)                         # Authentication
-    /login/page.tsx               # → /login
-    /register/page.tsx            # → /register
-    
-  /(app)                          # Main application
-    /dashboard/
-      /layout.tsx                 # Dashboard layout
-      /page.tsx                   # → /dashboard (overview)
-      /conflicts/
-        /page.tsx                 # → /dashboard/conflicts
-        /[region]/
-          /page.tsx               # → /dashboard/conflicts/africa
-      /analytics/
-        /page.tsx                 # → /dashboard/analytics
-
-## 📈 Data Model
-
-### Conflict Data Structure
-```typescript
-interface ConflictData {
-  id: string;
-  zone: string;                   // Region: 'Middle East', 'Europe', etc.
-  country: string;               // Affected country
-  conflictType: string;          // Type of conflict
-  intensity: 'Low' | 'Medium' | 'High' | 'Critical';
-  startDate: string;             // ISO date format
-  description: string;           // Detailed description
-  casualties?: number;           // Optional casualty count
-}
-```
-
-### Sample Data
-The dashboard includes 23 real-world conflict scenarios across 5 regions with:
-- Varied intensity levels and conflict types
-- Historical and ongoing conflicts
-- Realistic casualty estimates
-- Geographical coordinates for mapping
 
 ## 🎯 Key Components
 
