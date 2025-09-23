@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardLayout from '../../../components/DashboardLayout';
 import { conflictData, ConflictData } from '../../../lib/mockData';
+import Layout from '@/components/layout/Layout';
 
 export default function AllConflictsPage() {
   const [isClient, setIsClient] = useState(false);
@@ -208,7 +208,7 @@ export default function AllConflictsPage() {
   }
 
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="mb-8">
@@ -520,6 +520,6 @@ export default function AllConflictsPage() {
           )}
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }

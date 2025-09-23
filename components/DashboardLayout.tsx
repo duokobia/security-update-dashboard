@@ -21,10 +21,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard' },
-    { name: 'All Regions', href: '/dashboard/all-regions' },
-    { name: 'Africa', href: '/dashboard/africa' },
+    { name: 'All Regions', href: '/dashboard/conflicts' },
+    { name: 'Africa', href: '/dashboard/conflicts/africa' },
     { name: 'Americas', href: '/dashboard/americas' },
-    { name: 'Asia Pacific', href: '/dashboard/asia-pacific' },
+    { name: 'Asia Pacific', href: '/dashboard/conflicts/asia-pacific' },
     { name: 'Europe', href: '/dashboard/europe' },
     { name: 'Middle East', href: '/dashboard/middle-east' },
   ];
