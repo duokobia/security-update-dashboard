@@ -32,14 +32,10 @@ export default function Dashboard() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Charts Section */}
           <DashboardCharts />
-
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Conflict Updates</h1>
           <p className="text-gray-600 mb-8">Global political violence monitoring and analysis</p>
-          
-          {/* Recent Conflicts */}
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Conflict Updates</h3>

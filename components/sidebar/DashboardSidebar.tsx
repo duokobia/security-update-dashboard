@@ -82,9 +82,9 @@ export default function DashboardSidebar() {
           <ul className="space-y-2">
             <li>
               <Link
-                href="/analytics"
+                href="/dashboard/analytics"
                 className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === '/analytics'
+                  pathname === '/dashboard/analytics'
                     ? 'bg-blue-50 text-blue-600'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
@@ -101,7 +101,7 @@ export default function DashboardSidebar() {
               <Link
                 href="/logout"
                 className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === '/logout'
+                  pathname === '/login'
                     ? 'bg-blue-50 text-blue-600'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
