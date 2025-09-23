@@ -1,23 +1,27 @@
 // components/Header.tsx
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const pathname = usePathname();
 
   // Navigation items
   const navigation = [
-    { name: 'Home', href: '/', current: pathname === '/' },
-    { name: 'Features', href: '/features', current: pathname === '/features' },
-    { name: 'Dashboard', href: '/dashboard', current: pathname.startsWith('/dashboard') },
+    { name: "Home", href: "/", current: pathname === "/" },
+    { name: "Features", href: "/features", current: pathname === "/features" },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      current: pathname.startsWith("/dashboard"),
+    },
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+    <header className="border-b bg-white shadow-sm">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-gray-900">
@@ -26,15 +30,15 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden items-center space-x-8 md:flex">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   item.current
-                    ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-600'
-                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                    ? "border-b-2 border-blue-600 bg-blue-50 text-blue-600"
+                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                 }`}
               >
                 {item.name}
@@ -46,13 +50,13 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <Link
               href="/login"
-              className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              className="rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-900"
             >
               Sign In
             </Link>
             <Link
               href="/register"
-              className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium"
+              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
               Sign Up
             </Link>

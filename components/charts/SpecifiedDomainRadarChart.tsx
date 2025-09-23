@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Radar,
@@ -8,8 +8,8 @@ import {
   PolarRadiusAxis,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import { BarChartData } from '../../lib/mockData';
+} from "recharts";
+import { BarChartData } from "../../lib/mockData";
 
 interface SpecifiedDomainRadarChartProps {
   data: BarChartData[];
@@ -26,13 +26,15 @@ interface CustomTooltipProps {
   label?: string | number;
 }
 
-export default function SpecifiedDomainRadarChart({ data }: SpecifiedDomainRadarChartProps) {
+export default function SpecifiedDomainRadarChart({
+  data,
+}: SpecifiedDomainRadarChartProps) {
   const customTooltip = ({ active, payload }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
       const entry = payload[0].payload;
 
       return (
-        <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg text-sm">
+        <div className="rounded-lg border border-gray-300 bg-white p-4 text-sm shadow-lg">
           <p className="font-semibold text-gray-800">{entry.zone}</p>
           <p>Avg. Intensity: {entry.averageIntensity.toFixed(1)}</p>
           <p>Conflicts: {entry.conflicts}</p>
@@ -44,8 +46,8 @@ export default function SpecifiedDomainRadarChart({ data }: SpecifiedDomainRadar
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">
+    <div className="rounded-lg bg-white p-6 shadow-md">
+      <h3 className="mb-4 text-lg font-semibold text-gray-800">
         Conflict Intensity by Region
       </h3>
       <div className="h-96">
@@ -65,7 +67,7 @@ export default function SpecifiedDomainRadarChart({ data }: SpecifiedDomainRadar
           </RadarChart>
         </ResponsiveContainer>
       </div>
-      <p className="text-sm text-gray-600 mt-2">
+      <p className="mt-2 text-sm text-gray-600">
         Intensity is scored on a scale from 0 (low) to 5 (critical).
       </p>
     </div>
