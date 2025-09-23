@@ -1,24 +1,27 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function DashboardHeader() {
   const pathname = usePathname();
 
   const dashboardNav = [
-    { name: 'Overview', href: '/dashboard', icon: '📊' },
-    { name: 'All Conflicts', href: '/dashboard/conflicts', icon: '🌍' },
-    { name: 'Analytics', href: '/dashboard/analytics', icon: '📈' },
+    { name: "Overview", href: "/dashboard", icon: "📊" },
+    { name: "All Conflicts", href: "/dashboard/conflicts", icon: "🌍" },
+    { name: "Analytics", href: "/dashboard/analytics", icon: "📈" },
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="border-b bg-white shadow-sm">
       <div className="max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex h-16 justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/dashboard" className="text-lg font-semibold text-gray-900">
+            <Link
+              href="/dashboard"
+              className="text-lg font-semibold text-gray-900"
+            >
               Security Dashboard
             </Link>
           </div>
@@ -29,10 +32,10 @@ export default function DashboardHeader() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  pathname === item.href || pathname.startsWith(item.href + '/')
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                className={`flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  pathname === item.href || pathname.startsWith(item.href + "/")
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                 }`}
               >
                 <span className="mr-2">{item.icon}</span>
@@ -46,7 +49,7 @@ export default function DashboardHeader() {
             <span className="text-sm text-gray-700">Welcome, User</span>
             <Link
               href="/login"
-              className="px-4 py-1 text-md text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded-lg"
+              className="text-md rounded-lg px-4 py-1 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
             >
               Logout
             </Link>
