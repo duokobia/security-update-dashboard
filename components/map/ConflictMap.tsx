@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
@@ -8,13 +8,16 @@ import { ConflictData } from '@/lib/mockData';
 // Custom icon setup
 const createDefaultIcon = (): L.Icon => {
   return new L.Icon({
-    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconRetinaUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+    iconUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    shadowSize: [41, 41]
+    shadowSize: [41, 41],
   });
 };
 
@@ -62,27 +65,32 @@ interface MapControllerProps {
   zoom: number;
 }
 
-function MapController({ selectedCountry, countryCoordinates, center, zoom }: MapControllerProps) {
+function MapController({
+  selectedCountry,
+  countryCoordinates,
+  center,
+  zoom,
+}: MapControllerProps) {
   const map = useMap();
   
   useEffect(() => {
     map.setView(center, zoom);
   }, [map, center, zoom]);
-  
+
   useEffect(() => {
     if (selectedCountry && countryCoordinates[selectedCountry]) {
       const coords = countryCoordinates[selectedCountry];
       map.setView([coords.latitude, coords.longitude] as L.LatLngTuple, 6);
     }
   }, [selectedCountry, countryCoordinates, map]);
-  
+
   return null;
 }
 
-export default function ConflictMap({ 
-  conflicts, 
-  selectedCountry = null, 
-  region = 'Middle East' 
+export default function ConflictMap({
+  conflicts,
+  selectedCountry = null,
+  region = "Middle East",
 }: ConflictMapProps) {
   // Region-based center coordinates and zoom levels - explicitly typed as LatLngTuple
   const regionSettings: Record<Region, { center: L.LatLngTuple; zoom: number }> = {
@@ -119,28 +127,28 @@ export default function ConflictMap({
   // Fixed country coordinates - removed duplicates
   const countryCoordinates: CountryCoordinates = {
     // Middle East countries
-    'Israel/Palestine': { latitude: 31.5, longitude: 34.75 },
-    'Yemen': { latitude: 15.5, longitude: 47.5 },
-    'Syria': { latitude: 35.0, longitude: 38.0 },
-    'Iraq': { latitude: 33.0, longitude: 43.0 },
-    'Iran': { latitude: 32.0, longitude: 53.0 },
-    'Saudi Arabia': { latitude: 24.0, longitude: 45.0 },
-    'Egypt': { latitude: 26.0, longitude: 30.0 },
-    'Lebanon': { latitude: 33.8, longitude: 35.8 },
-    'Jordan': { latitude: 31.2, longitude: 36.8 },
-    
+    "Israel/Palestine": { latitude: 31.5, longitude: 34.75 },
+    Yemen: { latitude: 15.5, longitude: 47.5 },
+    Syria: { latitude: 35.0, longitude: 38.0 },
+    Iraq: { latitude: 33.0, longitude: 43.0 },
+    Iran: { latitude: 32.0, longitude: 53.0 },
+    "Saudi Arabia": { latitude: 24.0, longitude: 45.0 },
+    Egypt: { latitude: 26.0, longitude: 30.0 },
+    Lebanon: { latitude: 33.8, longitude: 35.8 },
+    Jordan: { latitude: 31.2, longitude: 36.8 },
+
     // European countries
-    'Ukraine': { latitude: 48.3794, longitude: 31.1656 },
-    'Russia': { latitude: 61.5240, longitude: 105.3188 },
-    'Germany': { latitude: 51.1657, longitude: 10.4515 },
-    'France': { latitude: 46.6034, longitude: 1.8883 },
-    'United Kingdom': { latitude: 55.3781, longitude: -3.4360 },
-    'Italy': { latitude: 41.8719, longitude: 12.5674 },
-    'Spain': { latitude: 40.4637, longitude: -3.7492 },
-    'Poland': { latitude: 51.9194, longitude: 19.1451 },
-    'Belarus': { latitude: 53.7098, longitude: 27.9534 },
-    'Moldova': { latitude: 47.4116, longitude: 28.3699 },
-    
+    Ukraine: { latitude: 48.3794, longitude: 31.1656 },
+    Russia: { latitude: 61.524, longitude: 105.3188 },
+    Germany: { latitude: 51.1657, longitude: 10.4515 },
+    France: { latitude: 46.6034, longitude: 1.8883 },
+    "United Kingdom": { latitude: 55.3781, longitude: -3.436 },
+    Italy: { latitude: 41.8719, longitude: 12.5674 },
+    Spain: { latitude: 40.4637, longitude: -3.7492 },
+    Poland: { latitude: 51.9194, longitude: 19.1451 },
+    Belarus: { latitude: 53.7098, longitude: 27.9534 },
+    Moldova: { latitude: 47.4116, longitude: 28.3699 },
+
     // Asia Pacific countries
     'Myanmar': { latitude: 21.9162, longitude: 95.9560 },
     'China': { latitude: 35.8617, longitude: 104.1954 },
@@ -175,33 +183,43 @@ export default function ConflictMap({
   };
 
   // Get icon based on intensity
-  const getIcon = (intensity: ConflictData['intensity']): L.Icon => {
-    const size = intensity === 'Critical' ? 20 : 
-                 intensity === 'High' ? 16 : 
-                 intensity === 'Medium' ? 12 : 8;
-    
-    const color = intensity === 'Critical' ? '#8B0000' :
-                  intensity === 'High' ? '#FF0000' :
-                  intensity === 'Medium' ? '#FFA500' : '#FFFF00';
-    
+  const getIcon = (intensity: ConflictData["intensity"]): L.Icon => {
+    const size =
+      intensity === "Critical"
+        ? 20
+        : intensity === "High"
+          ? 16
+          : intensity === "Medium"
+            ? 12
+            : 8;
+
+    const color =
+      intensity === "Critical"
+        ? "#8B0000"
+        : intensity === "High"
+          ? "#FF0000"
+          : intensity === "Medium"
+            ? "#FFA500"
+            : "#FFFF00";
+
     return createCustomIcon(color, size);
   };
 
   return (
-    <div className="h-96 w-full rounded-lg overflow-hidden shadow-lg">
+    <div className="h-96 w-full overflow-hidden rounded-lg shadow-lg">
       <MapContainer
         center={center}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
         scrollWheelZoom={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        
-        <MapController 
-          selectedCountry={selectedCountry} 
+
+        <MapController
+          selectedCountry={selectedCountry}
           countryCoordinates={countryCoordinates}
           center={center}
           zoom={zoom}
@@ -210,7 +228,9 @@ export default function ConflictMap({
         {conflicts.map((conflict) => {
           const coords = countryCoordinates[conflict.country];
           if (!coords) {
-            console.warn(`Coordinates not found for country: ${conflict.country}`);
+            console.warn(
+              `Coordinates not found for country: ${conflict.country}`,
+            );
             return null;
           }
 
@@ -221,27 +241,37 @@ export default function ConflictMap({
               icon={getIcon(conflict.intensity)}
             >
               <Popup>
-                <div className="p-2 min-w-[200px]">
-                  <h3 className="font-bold text-lg mb-1">{conflict.country}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{conflict.conflictType}</p>
-                  <div className="flex items-center mb-2">
-                    <span 
-                      className={`inline-block w-3 h-3 rounded-full mr-2 ${
-                        conflict.intensity === 'High' || conflict.intensity === 'Critical' ? 'bg-red-500' :
-                        conflict.intensity === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'
+                <div className="min-w-[200px] p-2">
+                  <h3 className="mb-1 text-lg font-bold">{conflict.country}</h3>
+                  <p className="mb-2 text-sm text-gray-600">
+                    {conflict.conflictType}
+                  </p>
+                  <div className="mb-2 flex items-center">
+                    <span
+                      className={`mr-2 inline-block h-3 w-3 rounded-full ${
+                        conflict.intensity === "High" ||
+                        conflict.intensity === "Critical"
+                          ? "bg-red-500"
+                          : conflict.intensity === "Medium"
+                            ? "bg-yellow-500"
+                            : "bg-green-500"
                       }`}
                     />
-                    <span className="text-sm">{conflict.intensity} Intensity</span>
+                    <span className="text-sm">
+                      {conflict.intensity} Intensity
+                    </span>
                   </div>
                   {conflict.casualties && (
-                    <p className="text-sm mb-2">
-                      <strong>Casualties:</strong> {conflict.casualties.toLocaleString()}
+                    <p className="mb-2 text-sm">
+                      <strong>Casualties:</strong>{" "}
+                      {conflict.casualties.toLocaleString()}
                     </p>
                   )}
                   <p className="text-xs text-gray-500">
-                    <strong>Started:</strong> {new Date(conflict.startDate).toLocaleDateString()}
+                    <strong>Started:</strong>{" "}
+                    {new Date(conflict.startDate).toLocaleDateString()}
                   </p>
-                  <p className="text-sm mt-2">{conflict.description}</p>
+                  <p className="mt-2 text-sm">{conflict.description}</p>
                 </div>
               </Popup>
             </Marker>

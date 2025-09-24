@@ -7,23 +7,27 @@ A comprehensive, real-time dashboard for monitoring and analyzing global securit
 ## 🌟 Features
 
 ### 📊 **Interactive Dashboard**
+
 - **Global Overview**: Summary cards with total conflicts, casualties, and intensity metrics
 - **Regional Analysis**: Dedicated pages for Middle East, Europe, Asia Pacific, Africa, and Americas
 - **Real-time Data**: Dynamic filtering and search capabilities
 
 ### 🗺️ **Geospatial Visualization**
+
 - **Interactive Maps**: Leaflet-based conflict mapping with OpenStreetMap integration
 - **Region-specific Centering**: Automatic map positioning based on selected region
 - **Intensity-based Markers**: Color-coded pins (Red=High, Yellow=Medium, Green=Low)
 - **Popup Details**: Click markers for conflict information and statistics
 
 ### 🔍 **Advanced Data Management**
+
 - **Smart Filtering**: Filter by region, conflict intensity, and type
 - **Full-Text Search**: Search across countries, conflict types, and descriptions
 - **Multi-column Sorting**: Sort by country, region, intensity, date, or casualties
 - **Pagination**: Configurable rows per page (5, 10, 20, 50, 100) with smart navigation
 
 ### 📱 **Modern UX/UI**
+
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **Professional Styling**: Tailwind CSS with clean, accessible interface
 - **Type Safety**: Full TypeScript implementation
@@ -33,19 +37,21 @@ A comprehensive, real-time dashboard for monitoring and analyzing global securit
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Modern web browser
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/duokobia/security-update-dashboard.git
    cd security-update-dashboard
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -53,6 +59,7 @@ A comprehensive, real-time dashboard for monitoring and analyzing global securit
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -72,8 +79,14 @@ npm start
 ## 🏗️ Project Structure
 
 ```
+
 security-update-dashboard/
-├── app/                            # Next.js app directory
+├── .husky/                         # Git hooks directory
+│   ├── _/                         # Husky internal scripts
+│   │   └── husky.sh
+│   ├── pre-commit                 # Pre-commit hook
+│   └── commit-msg                 # Commit message hook (optional)
+├── app/                           # Next.js app directory
 │   ├── (marketing)/               # Public pages
 │   │   ├── page.tsx               # → / (landing page)
 │   │   └── features/
@@ -100,27 +113,38 @@ security-update-dashboard/
 ├── lib/                          # Utilities and data
 │   └── mockData.ts               # Conflict dataset
 ├── public/                       # Static assets
-└── types/                        # TypeScript definitions
-```
+├── types/                        # TypeScript definitions
+├── .eslintrc.json                # ESLint configuration (or eslint.config.mjs)
+├── .prettierrc                   # Prettier configuration
+├── .prettierignore               # Prettier ignore patterns
+├── commitlint.config.js          # Commit message validation (optional)
+├── lint-staged.config.js         # lint-staged configuration (optional)
+└── package.json                  # Project dependencies and scripts
 
+```
 
 ## 🎯 Key Components
 
 ### ConflictMap Component
+
 Interactive Leaflet map with:
+
 - Region-based auto-centering
 - Intensity-based marker styling
 - Popup information windows
 - Responsive design
 
 ### Data Table Features
+
 - **Sortable Columns**: Click headers to sort ascending/descending
 - **Advanced Filtering**: Combine region and intensity filters
 - **Live Search**: Real-time text search across multiple fields
 - **Pagination**: Navigate large datasets efficiently
 
 ### Regional Pages
+
 Each region page includes:
+
 - Region-specific conflict mapping
 - Filtered conflict listings
 - Intensity-based color coding
@@ -129,6 +153,7 @@ Each region page includes:
 ## 🔧 Configuration
 
 ### Environment Variables
+
 Create a `.env.local` file for configuration:
 
 ```env
@@ -137,7 +162,9 @@ NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token_here
 ```
 
 ### Customizing Data
+
 Edit `lib/mockData.ts` to:
+
 - Add new conflict entries
 - Modify existing data
 - Update regional statistics
@@ -146,6 +173,7 @@ Edit `lib/mockData.ts` to:
 ## 🎨 Customization
 
 ### Styling
+
 The project uses Tailwind CSS. Key customization points:
 
 - **Colors**: Modify `tailwind.config.js` for brand colors
@@ -153,6 +181,7 @@ The project uses Tailwind CSS. Key customization points:
 - **Layout**: Adjust responsive breakpoints as needed
 
 ### Adding New Regions
+
 1. Add region to `ConflictData.zone` type
 2. Update region coordinates in `ConflictMap.tsx`
 3. Create new page in `app/[region]/`
@@ -190,12 +219,9 @@ npm run type-check   # TypeScript validation
 - [ ] **Notification System** - Alert for new conflicts
 - [ ] **Historical Data** - Conflict timeline visualization
 
-
 ## 🙏 Acknowledgments
 
 - **OpenStreetMap** for free map tiles
 - **Leaflet** for interactive mapping
 - **Next.js** for React framework
 - **Tailwind CSS** for styling utilities
-
-

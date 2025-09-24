@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   ScatterChart,
@@ -10,8 +10,8 @@ import {
   ResponsiveContainer,
   Cell,
   TooltipContentProps,
-} from 'recharts';
-import { conflictData } from '../../lib/mockData';
+} from "recharts";
+import { conflictData } from "../../lib/mockData";
 
 const zoneColors: Record<string, string> = {
   'Africa': '#ff7300',
@@ -47,8 +47,10 @@ const CustomTooltip = ({
     const data = payload[0].payload as ChartPoint;
 
     return (
-      <div className="bg-white p-3 border border-gray-300 rounded shadow text-sm">
-        <p className="font-semibold">{data.country} ({data.zone})</p>
+      <div className="rounded border border-gray-300 bg-white p-3 text-sm shadow">
+        <p className="font-semibold">
+          {data.country} ({data.zone})
+        </p>
         <p>Start Date: {new Date(data.x).toLocaleDateString()}</p>
         <p>Casualties: {data.y.toLocaleString()}</p>
         <p>Intensity: {data.intensity}</p>
@@ -60,8 +62,8 @@ const CustomTooltip = ({
 
 export default function ScatterChartWithCells() {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">
+    <div className="rounded-lg bg-white p-6 shadow-md">
+      <h3 className="mb-4 text-lg font-semibold text-gray-800">
         Conflicts by Start Date and Casualties
       </h3>
       <div className="h-72">
@@ -72,8 +74,10 @@ export default function ScatterChartWithCells() {
               type="number"
               dataKey="x"
               name="Start Date"
-              tickFormatter={(value) => new Date(value).getFullYear().toString()}
-              domain={['auto', 'auto']}
+              tickFormatter={(value) =>
+                new Date(value).getFullYear().toString()
+              }
+              domain={["auto", "auto"]}
             />
             <YAxis
               type="number"
@@ -86,7 +90,7 @@ export default function ScatterChartWithCells() {
               {chartData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={zoneColors[entry.zone] || '#8884d8'}
+                  fill={zoneColors[entry.zone] || "#8884d8"}
                 />
               ))}
             </Scatter>

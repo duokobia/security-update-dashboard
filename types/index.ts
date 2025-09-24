@@ -14,7 +14,7 @@ export interface ConflictData {
   zone: string;
   country: string;
   conflictType: string;
-  intensity: 'Low' | 'Medium' | 'High' | 'Critical';
+  intensity: "Low" | "Medium" | "High" | "Critical";
   startDate: string;
   description: string;
   casualties?: number;
@@ -22,12 +22,12 @@ export interface ConflictData {
 
 export interface TimeSeriesData {
   date: string;
-  'Middle East': number;
-  'Europe': number;
-  'Asia Pacific': number;
-  'Africa': number;
-  'Americas': number;
-  'Global': number;
+  "Middle East": number;
+  Europe: number;
+  "Asia Pacific": number;
+  Africa: number;
+  Americas: number;
+  Global: number;
 }
 
 export interface BarChartData {

@@ -1,42 +1,49 @@
-'use client';
+"use client";
 
-import PoliticalViolenceLineChart from './LineChart';
-import ConflictBarChart from './BarChart';
-import { timeSeriesData, barChartData } from '../../lib/mockData';
+import PoliticalViolenceLineChart from "./LineChart";
+import ConflictBarChart from "./BarChart";
+import { timeSeriesData, barChartData } from "../../lib/mockData";
 
 export default function DashboardCharts() {
   return (
     <div className="mt-8">
-
       {/* Key Metrics Summary */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Key Insights</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-50 p-4 rounded-lg">
+      <div className="mb-8 rounded-lg bg-white p-6 shadow-md">
+        <h3 className="mb-4 text-lg font-semibold text-gray-800">
+          Key Insights
+        </h3>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-lg bg-blue-50 p-4">
             <div className="text-2xl font-bold text-blue-600">
-              {barChartData.find(d => d.zone === 'Global')?.conflicts}
+              {barChartData.find((d) => d.zone === "Global")?.conflicts}
             </div>
             <div className="text-sm text-gray-600">Total Active Conflicts</div>
           </div>
-          <div className="bg-red-50 p-4 rounded-lg">
+          <div className="rounded-lg bg-red-50 p-4">
             <div className="text-2xl font-bold text-red-600">
-              {((barChartData.find(d => d.zone === 'Global')?.casualties || 0) / 1000).toFixed(0)}k
+              {(
+                (barChartData.find((d) => d.zone === "Global")?.casualties ||
+                  0) / 1000
+              ).toFixed(0)}
+              k
             </div>
             <div className="text-sm text-gray-600">Estimated Casualties</div>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
+          <div className="rounded-lg bg-green-50 p-4">
             <div className="text-2xl font-bold text-green-600">
-              {timeSeriesData[timeSeriesData.length - 1]['Global']}
+              {timeSeriesData[timeSeriesData.length - 1]["Global"]}
             </div>
-            <div className="text-sm text-gray-600">Recent Monthly Incidents</div>
+            <div className="text-sm text-gray-600">
+              Recent Monthly Incidents
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Line Chart */}
         <PoliticalViolenceLineChart data={timeSeriesData} />
-        
+
         {/* Bar Chart */}
         <ConflictBarChart data={barChartData} />
       </div>
