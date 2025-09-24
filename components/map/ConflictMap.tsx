@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { ConflictData } from "@/lib/mockData";
+import { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import { ConflictData } from '@/lib/mockData';
 
-// Custom icon setup without modifying prototypes
+// Custom icon setup
 const createDefaultIcon = (): L.Icon => {
   return new L.Icon({
     iconRetinaUrl:
@@ -22,8 +21,10 @@ const createDefaultIcon = (): L.Icon => {
   });
 };
 
-// Set default icon globally
-L.Marker.prototype.options.icon = createDefaultIcon();
+// Set default icon globally (with SSR check)
+if (typeof window !== 'undefined') {
+  L.Marker.prototype.options.icon = createDefaultIcon();
+}
 
 // Type definitions
 interface CountryCoordinates {
@@ -33,8 +34,7 @@ interface CountryCoordinates {
   };
 }
 
-// Define valid region types
-type Region = "Middle East" | "Europe" | "Asia Pacific" | "Africa" | "Americas";
+type Region = 'Africa' | 'Americas' | 'Asia Pacific' | 'Australia' | 'Europe' | 'Middle East';
 
 interface ConflictMapProps {
   conflicts: ConflictData[];
@@ -57,11 +57,11 @@ const createCustomIcon = (color: string, size: number): L.Icon => {
   });
 };
 
-// Map controller component for programmatic control
+// Map controller component
 interface MapControllerProps {
   selectedCountry: string | null;
   countryCoordinates: CountryCoordinates;
-  center: [number, number];
+  center: L.LatLngTuple;
   zoom: number;
 }
 
@@ -72,17 +72,15 @@ function MapController({
   zoom,
 }: MapControllerProps) {
   const map = useMap();
-
-  // Set initial view based on region center/zoom
+  
   useEffect(() => {
     map.setView(center, zoom);
   }, [map, center, zoom]);
 
-  // Zoom to selected country if provided
   useEffect(() => {
     if (selectedCountry && countryCoordinates[selectedCountry]) {
       const coords = countryCoordinates[selectedCountry];
-      map.setView([coords.latitude, coords.longitude], 6);
+      map.setView([coords.latitude, coords.longitude] as L.LatLngTuple, 6);
     }
   }, [selectedCountry, countryCoordinates, map]);
 
@@ -94,36 +92,39 @@ export default function ConflictMap({
   selectedCountry = null,
   region = "Middle East",
 }: ConflictMapProps) {
-  // Region-based center coordinates and zoom levels
-  const regionSettings = {
-    "Middle East": {
-      center: [25.0, 43.0] as [number, number],
-      zoom: 5,
+  // Region-based center coordinates and zoom levels - explicitly typed as LatLngTuple
+  const regionSettings: Record<Region, { center: L.LatLngTuple; zoom: number }> = {
+    'Africa': {
+      center: [8.7832, 34.5085],
+      zoom: 3
     },
-    Europe: {
-      center: [54.526, 15.2551] as [number, number],
-      zoom: 4,
+    'Americas': {
+      center: [19.8968, -77.6045],
+      zoom: 3
     },
-    "Asia Pacific": {
-      center: [25.0, 110.0] as [number, number],
-      zoom: 3,
+    'Asia Pacific': {
+      center: [25.0, 110.0],
+      zoom: 3
     },
-    Africa: {
-      center: [8.7832, 34.5085] as [number, number],
-      zoom: 3,
+    'Australia': {
+      center: [-25.2744, 133.7751],
+      zoom: 4
     },
-    Americas: {
-      center: [19.8968, -77.6045] as [number, number],
-      zoom: 3,
+    'Europe': {
+      center: [54.5260, 15.2551],
+      zoom: 4
     },
+    'Middle East': {
+      center: [25.0, 43.0],
+      zoom: 5
+    }
   };
 
-  // Type-safe access to region settings
-  const settings = regionSettings[region];
-  const center = settings.center;
+  const settings = regionSettings[region] || regionSettings['Middle East'];
+  const center: L.LatLngTuple = settings.center;
   const zoom = settings.zoom;
 
-  // Coordinates for all countries
+  // Fixed country coordinates - removed duplicates
   const countryCoordinates: CountryCoordinates = {
     // Middle East countries
     "Israel/Palestine": { latitude: 31.5, longitude: 34.75 },
@@ -149,32 +150,36 @@ export default function ConflictMap({
     Moldova: { latitude: 47.4116, longitude: 28.3699 },
 
     // Asia Pacific countries
-    Myanmar: { latitude: 21.9162, longitude: 95.956 },
-    China: { latitude: 35.8617, longitude: 104.1954 },
-    India: { latitude: 20.5937, longitude: 78.9629 },
-    Pakistan: { latitude: 30.3753, longitude: 69.3451 },
-    Afghanistan: { latitude: 33.9391, longitude: 67.71 },
-    "North Korea": { latitude: 40.3399, longitude: 127.5101 },
-    "South Korea": { latitude: 35.9078, longitude: 127.7669 },
-    Japan: { latitude: 36.2048, longitude: 138.2529 },
-    Philippines: { latitude: 12.8797, longitude: 121.774 },
-    Vietnam: { latitude: 14.0583, longitude: 108.2772 },
-    Thailand: { latitude: 15.87, longitude: 100.9925 },
-    Indonesia: { latitude: -0.7893, longitude: 113.9213 },
-    Malaysia: { latitude: 4.2105, longitude: 101.9758 },
-    Australia: { latitude: -25.2744, longitude: 133.7751 },
-    "New Zealand": { latitude: -40.9006, longitude: 174.886 },
-    Taiwan: { latitude: 23.6978, longitude: 120.9605 },
-    Bangladesh: { latitude: 23.685, longitude: 90.3563 },
-    "Sri Lanka": { latitude: 7.8731, longitude: 80.7718 },
-    Nepal: { latitude: 28.3949, longitude: 84.124 },
-
-    // Africa countries (for future use)
-    Sudan: { latitude: 12.8628, longitude: 30.2176 },
-    Ethiopia: { latitude: 9.145, longitude: 40.4897 },
-
-    // Americas countries (for future use)
-    Haiti: { latitude: 18.9712, longitude: -72.2852 },
+    'Myanmar': { latitude: 21.9162, longitude: 95.9560 },
+    'China': { latitude: 35.8617, longitude: 104.1954 },
+    'India': { latitude: 20.5937, longitude: 78.9629 },
+    'Pakistan': { latitude: 30.3753, longitude: 69.3451 },
+    'Afghanistan': { latitude: 33.9391, longitude: 67.7100 },
+    'North Korea': { latitude: 40.3399, longitude: 127.5101 },
+    'South Korea': { latitude: 35.9078, longitude: 127.7669 },
+    'Japan': { latitude: 36.2048, longitude: 138.2529 },
+    'Philippines': { latitude: 12.8797, longitude: 121.7740 },
+    'Vietnam': { latitude: 14.0583, longitude: 108.2772 },
+    'Thailand': { latitude: 15.8700, longitude: 100.9925 },
+    'Indonesia': { latitude: -0.7893, longitude: 113.9213 },
+    'Malaysia': { latitude: 4.2105, longitude: 101.9758 },
+    
+    // Australia & Oceania
+    'Australia': { latitude: -25.2744, longitude: 133.7751 },
+    'New Zealand': { latitude: -40.9006, longitude: 174.8860 },
+    
+    // Other Asia Pacific countries
+    'Taiwan': { latitude: 23.6978, longitude: 120.9605 },
+    'Bangladesh': { latitude: 23.6850, longitude: 90.3563 },
+    'Sri Lanka': { latitude: 7.8731, longitude: 80.7718 },
+    'Nepal': { latitude: 28.3949, longitude: 84.1240 },
+    
+    // Africa countries
+    'Sudan': { latitude: 12.8628, longitude: 30.2176 },
+    'Ethiopia': { latitude: 9.1450, longitude: 40.4897 },
+    
+    // Americas countries
+    'Haiti': { latitude: 18.9712, longitude: -72.2852 },
   };
 
   // Get icon based on intensity
@@ -232,7 +237,7 @@ export default function ConflictMap({
           return (
             <Marker
               key={conflict.id}
-              position={[coords.latitude, coords.longitude]}
+              position={[coords.latitude, coords.longitude] as L.LatLngTuple}
               icon={getIcon(conflict.intensity)}
             >
               <Popup>

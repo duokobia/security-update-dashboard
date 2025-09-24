@@ -7,19 +7,12 @@ export default function DashboardSidebar() {
   const pathname = usePathname();
 
   const regions = [
-    { name: "Africa", href: "/dashboard/conflicts/africa", flag: "🇿🇦" },
-    {
-      name: "Asia Pacific",
-      href: "/dashboard/conflicts/asia-pacific",
-      flag: "🌏",
-    },
-    { name: "Europe", href: "/dashboard/conflicts/europe", flag: "🇪🇺" },
-    {
-      name: "Middle East",
-      href: "/dashboard/conflicts/middle-east",
-      flag: "🌍",
-    },
-    { name: "Americas", href: "/dashboard/conflicts/americas", flag: "🇺🇸" },
+    { name: 'Africa', href: '/dashboard/conflicts/africa', flag: '🇿🇦' },
+    { name: 'Americas', href: '/dashboard/conflicts/americas', flag: '🇺🇸' },
+    { name: 'Asia Pacific', href: '/dashboard/conflicts/asia-pacific', flag: '🌏' },
+    { name: 'Australia', href: '/dashboard/conflicts/australia', flag: '🇺🇸' },
+    { name: 'Europe', href: '/dashboard/conflicts/europe', flag: '🇪🇺' },
+    { name: 'Middle East', href: '/dashboard/conflicts/middle-east', flag: '🌍' },
   ];
 
   return (
@@ -52,7 +45,7 @@ export default function DashboardSidebar() {
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
-                🌍 All Conflicts
+                🌍 All Regions
               </Link>
             </li>
           </ul>
