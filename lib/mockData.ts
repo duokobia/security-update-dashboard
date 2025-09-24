@@ -1,3 +1,5 @@
+
+
 export interface ConflictData {
   id: string;
   zone: string;
@@ -11,11 +13,12 @@ export interface ConflictData {
 
 export interface TimeSeriesData {
   date: string;
-  'Middle East': number;
-  'Europe': number;
-  'Asia Pacific': number;
   'Africa': number;
   'Americas': number;
+  'Asia Pacific': number;
+  'Australia': number;
+  'Europe': number;
+  'Middle East': number;
   'Global': number;
 }
 
@@ -256,31 +259,43 @@ export const conflictData: ConflictData[] = [
     startDate: '1974-07-20',
     description: 'Ongoing division between Greek and Turkish Cypriots',
     casualties: 0,
-  }
+  },
+  {
+  id: '24',
+  zone: 'Australia',
+  country: 'Australia',
+  conflictType: 'Protests',
+  intensity: 'Low',
+  startDate: '2023-06-01',
+  description: 'Nationwide protests over environmental policies',
+  casualties: 12,
+}
 ];
 
 // Time series data for line chart (political violence incidents by month)
 export const timeSeriesData: TimeSeriesData[] = [
-  { date: '2023-01', 'Middle East': 45, 'Europe': 12, 'Asia Pacific': 28, 'Africa': 32, 'Americas': 18, 'Global': 135 },
-  { date: '2023-02', 'Middle East': 52, 'Europe': 15, 'Asia Pacific': 31, 'Africa': 35, 'Americas': 22, 'Global': 155 },
-  { date: '2023-03', 'Middle East': 48, 'Europe': 18, 'Asia Pacific': 29, 'Africa': 38, 'Americas': 20, 'Global': 153 },
-  { date: '2023-04', 'Middle East': 61, 'Europe': 14, 'Asia Pacific': 33, 'Africa': 41, 'Americas': 25, 'Global': 174 },
-  { date: '2023-05', 'Middle East': 55, 'Europe': 16, 'Asia Pacific': 35, 'Africa': 37, 'Americas': 23, 'Global': 166 },
-  { date: '2023-06', 'Middle East': 58, 'Europe': 20, 'Asia Pacific': 38, 'Africa': 42, 'Americas': 27, 'Global': 185 },
-  { date: '2023-07', 'Middle East': 65, 'Europe': 22, 'Asia Pacific': 41, 'Africa': 45, 'Americas': 30, 'Global': 203 },
-  { date: '2023-08', 'Middle East': 72, 'Europe': 25, 'Asia Pacific': 44, 'Africa': 48, 'Americas': 32, 'Global': 221 },
-  { date: '2023-09', 'Middle East': 68, 'Europe': 28, 'Asia Pacific': 46, 'Africa': 51, 'Americas': 35, 'Global': 228 },
-  { date: '2023-10', 'Middle East': 85, 'Europe': 30, 'Asia Pacific': 49, 'Africa': 55, 'Americas': 38, 'Global': 257 },
-  { date: '2023-11', 'Middle East': 78, 'Europe': 32, 'Asia Pacific': 52, 'Africa': 58, 'Americas': 40, 'Global': 260 },
-  { date: '2023-12', 'Middle East': 82, 'Europe': 35, 'Asia Pacific': 55, 'Africa': 62, 'Americas': 42, 'Global': 276 },
+  { date: '2023-01', 'Middle East': 45, 'Europe': 12, 'Asia Pacific': 28, 'Africa': 32, 'Americas': 18, 'Australia': 2, 'Global': 137 },
+  { date: '2023-02', 'Middle East': 52, 'Europe': 15, 'Asia Pacific': 31, 'Africa': 35, 'Americas': 22, 'Australia': 2, 'Global': 157 },
+  { date: '2023-03', 'Middle East': 48, 'Europe': 18, 'Asia Pacific': 29, 'Africa': 38, 'Americas': 20, 'Australia': 3, 'Global': 156 },
+  { date: '2023-04', 'Middle East': 61, 'Europe': 14, 'Asia Pacific': 33, 'Africa': 41, 'Americas': 25, 'Australia': 3, 'Global': 177 },
+  { date: '2023-05', 'Middle East': 55, 'Europe': 16, 'Asia Pacific': 35, 'Africa': 37, 'Americas': 23, 'Australia': 4, 'Global': 170 },
+  { date: '2023-06', 'Middle East': 58, 'Europe': 20, 'Asia Pacific': 38, 'Africa': 42, 'Americas': 27, 'Australia': 4, 'Global': 189 },
+  { date: '2023-07', 'Middle East': 65, 'Europe': 22, 'Asia Pacific': 41, 'Africa': 45, 'Americas': 30, 'Australia': 3, 'Global': 206 },
+  { date: '2023-08', 'Middle East': 72, 'Europe': 25, 'Asia Pacific': 44, 'Africa': 48, 'Americas': 32, 'Australia': 3, 'Global': 224 },
+  { date: '2023-09', 'Middle East': 68, 'Europe': 28, 'Asia Pacific': 46, 'Africa': 51, 'Americas': 35, 'Australia': 4, 'Global': 232 },
+  { date: '2023-10', 'Middle East': 85, 'Europe': 30, 'Asia Pacific': 49, 'Africa': 55, 'Americas': 38, 'Australia': 5, 'Global': 262 },
+  { date: '2023-11', 'Middle East': 78, 'Europe': 32, 'Asia Pacific': 52, 'Africa': 58, 'Americas': 40, 'Australia': 4, 'Global': 264 },
+  { date: '2023-12', 'Middle East': 82, 'Europe': 35, 'Asia Pacific': 55, 'Africa': 62, 'Americas': 42, 'Australia': 5, 'Global': 281 },
 ];
+
 
 // Updated data for bar chart (conflict statistics by region) - adjusted to reflect new data
 export const barChartData: BarChartData[] = [
-  { zone: 'Middle East', conflicts: 6, casualties: 1085000, averageIntensity: 3.5 },
-  { zone: 'Europe', conflicts: 4, casualties: 512504, averageIntensity: 2.8 },
-  { zone: 'Asia Pacific', conflicts: 6, casualties: 537000, averageIntensity: 3.2 },
   { zone: 'Africa', conflicts: 5, casualties: 148000, averageIntensity: 3.4 },
   { zone: 'Americas', conflicts: 3, casualties: 615000, averageIntensity: 3.3 },
-  { zone: 'Global', conflicts: 24, casualties: 2851504, averageIntensity: 3.2 },
+  { zone: 'Asia Pacific', conflicts: 6, casualties: 537000, averageIntensity: 3.2 },
+  { zone: 'Australia', conflicts: 1, casualties: 12, averageIntensity: 1.0 },
+  { zone: 'Europe', conflicts: 4, casualties: 512504, averageIntensity: 2.8 },
+  { zone: 'Middle East', conflicts: 6, casualties: 1085000, averageIntensity: 3.5 },
+  { zone: 'Global', conflicts: 25, casualties: 2851516, averageIntensity: 3.18 },
 ];

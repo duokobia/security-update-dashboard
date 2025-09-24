@@ -14,11 +14,12 @@ import {
 import { conflictData } from '../../lib/mockData';
 
 const zoneColors: Record<string, string> = {
-  'Middle East': '#8884d8',
-  'Europe': '#82ca9d',
-  'Asia Pacific': '#ffc658',
   'Africa': '#ff7300',
   'Americas': '#8dd1e1',
+   'Asia Pacific': '#ffc658',
+  'Australia': '#8dd1e1',
+   'Europe': '#82ca9d',
+  'Middle East': '#8884d8',
   'Global': '#d084d0',
 };
 

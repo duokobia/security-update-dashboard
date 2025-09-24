@@ -41,8 +41,8 @@ export default function PoliticalViolenceLineChart({ data }: PoliticalViolenceLi
     return null;
   };
 
-  const zones = ['Middle East', 'Europe', 'Asia Pacific', 'Africa', 'Americas', 'Global'];
-  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#8dd1e1', '#d084d0'];
+  const zones = ['Middle East', 'Europe', 'Asia Pacific', 'Africa', 'Americas', 'Australia','Global'];
+  const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#8dd1e1','#82ca9d', '#d084d0'];
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
