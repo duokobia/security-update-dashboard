@@ -88,11 +88,11 @@ export default function AuthForm() {
 
       // Redirect based on mode
       const redirectPath = mode === 'login' ? '/dashboard' : '/login';
-      router.push(redirectPath);
+      router.replace(redirectPath);
     } catch (err: unknown) {
       console.error(`${mode} error:`, err);
 
-      // Comprehensive error handling
+      // Error handling
       if (typeof err === 'object' && err !== null) {
         // Axios error with response
         if (
