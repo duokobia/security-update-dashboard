@@ -22,11 +22,12 @@ export interface ConflictData {
 
 export interface TimeSeriesData {
   date: string;
-  'Middle East': number;
-  Europe: number;
-  'Asia Pacific': number;
   Africa: number;
   Americas: number;
+  AsiaPacific: number;
+  Australia: number;
+  Europe: number;
+  MiddleEast: number;
   Global: number;
 }
 
