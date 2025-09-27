@@ -2,7 +2,13 @@
 
 A comprehensive, real-time dashboard for monitoring and analyzing global security conflicts and political violence incidents.
 
-![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![React](https://img.shields.io/badge/React-18-61dafb)
+## Dashboard Preview
+
+![Dashboard Preview]()
+
+## Live Website
+
+Please register and log into the live website: https://security-update-dashboard.vercel.app/login
 
 ## 🌟 Features
 
