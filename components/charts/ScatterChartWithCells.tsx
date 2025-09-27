@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   ScatterChart,
@@ -10,17 +10,17 @@ import {
   ResponsiveContainer,
   Cell,
   TooltipContentProps,
-} from "recharts";
-import { conflictData } from "../../lib/mockData";
+} from 'recharts';
+import { conflictData } from '../../lib/mockData';
 
 const zoneColors: Record<string, string> = {
-  'Africa': '#ff7300',
-  'Americas': '#8dd1e1',
-   'Asia Pacific': '#ffc658',
-  'Australia': '#8dd1e1',
-   'Europe': '#82ca9d',
+  Africa: '#ff7300',
+  Americas: '#8dd1e1',
+  'Asia Pacific': '#ffc658',
+  Australia: '#8dd1e1',
+  Europe: '#82ca9d',
   'Middle East': '#8884d8',
-  'Global': '#d084d0',
+  Global: '#d084d0',
 };
 
 interface ChartPoint {
@@ -31,7 +31,7 @@ interface ChartPoint {
   intensity: string;
 }
 
-const chartData: ChartPoint[] = conflictData.map((conflict) => ({
+const chartData: ChartPoint[] = conflictData.map(conflict => ({
   x: new Date(conflict.startDate).getTime(),
   y: conflict.casualties ?? 0,
   zone: conflict.zone,
@@ -47,8 +47,8 @@ const CustomTooltip = ({
     const data = payload[0].payload as ChartPoint;
 
     return (
-      <div className="rounded border border-gray-300 bg-white p-3 text-sm shadow">
-        <p className="font-semibold">
+      <div className='rounded border border-gray-300 bg-white p-3 text-sm shadow'>
+        <p className='font-semibold'>
           {data.country} ({data.zone})
         </p>
         <p>Start Date: {new Date(data.x).toLocaleDateString()}</p>
@@ -62,35 +62,33 @@ const CustomTooltip = ({
 
 export default function ScatterChartWithCells() {
   return (
-    <div className="rounded-lg bg-white p-6 shadow-md">
-      <h3 className="mb-4 text-lg font-semibold text-gray-800">
+    <div className='rounded-lg bg-white p-6 shadow-md'>
+      <h3 className='mb-4 text-lg font-semibold text-gray-800'>
         Conflicts by Start Date and Casualties
       </h3>
-      <div className="h-72">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className='h-72'>
+        <ResponsiveContainer width='100%' height='100%'>
           <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
             <CartesianGrid />
             <XAxis
-              type="number"
-              dataKey="x"
-              name="Start Date"
-              tickFormatter={(value) =>
-                new Date(value).getFullYear().toString()
-              }
-              domain={["auto", "auto"]}
+              type='number'
+              dataKey='x'
+              name='Start Date'
+              tickFormatter={value => new Date(value).getFullYear().toString()}
+              domain={['auto', 'auto']}
             />
             <YAxis
-              type="number"
-              dataKey="y"
-              name="Casualties"
-              tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
+              type='number'
+              dataKey='y'
+              name='Casualties'
+              tickFormatter={value => `${(value / 1000).toFixed(0)}k`}
             />
             <Tooltip content={CustomTooltip} />
-            <Scatter data={chartData} fill="#8884d8">
+            <Scatter data={chartData} fill='#8884d8'>
               {chartData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={zoneColors[entry.zone] || "#8884d8"}
+                  fill={zoneColors[entry.zone] || '#8884d8'}
                 />
               ))}
             </Scatter>

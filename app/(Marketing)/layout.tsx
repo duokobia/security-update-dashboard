@@ -1,4 +1,4 @@
-import Header from "@/components/header/Header";
+import Header from '@/components/header/Header';
 
 export default function MarketingLayout({
   children,
@@ -6,7 +6,7 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className='min-h-screen bg-gray-50'>
       <Header />
       <main>{children}</main>
     </div>
