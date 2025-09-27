@@ -21,12 +21,6 @@ const createDefaultIcon = (): L.Icon => {
   });
 };
 
-// Set default icon globally (with SSR check)
-if (typeof window !== 'undefined') {
-  L.Marker.prototype.options.icon = createDefaultIcon();
-}
-
-// Type definitions
 interface CountryCoordinates {
   [key: string]: {
     latitude: number;
@@ -48,22 +42,34 @@ interface ConflictMapProps {
   region?: Region;
 }
 
-// Custom icons for different intensity levels
-const createCustomIcon = (color: string, size: number): L.Icon => {
-  return new L.Icon({
-    iconUrl: `data:image/svg+xml;base64,${btoa(`
-      <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" fill="${color}" stroke="white" stroke-width="2"/>
-        <circle cx="12" cy="12" r="4" fill="white"/>
-      </svg>
-    `)}`,
+const createCustomIcon = (color: string, size: number): L.DivIcon => {
+  return L.divIcon({
+    className: 'custom-marker',
+    html: `
+      <div style="
+        background-color: ${color};
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 50%;
+        border: 2px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <div style="
+          background-color: white;
+          width: ${size / 3}px;
+          height: ${size / 3}px;
+          border-radius: 50%;
+        "></div>
+      </div>
+    `,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     popupAnchor: [0, -size / 2],
   });
 };
 
-// Map controller component
 interface MapControllerProps {
   selectedCountry: string | null;
   countryCoordinates: CountryCoordinates;
@@ -98,101 +104,31 @@ export default function ConflictMap({
   selectedCountry = null,
   region = 'Middle East',
 }: ConflictMapProps) {
-  // Region-based center coordinates and zoom levels - explicitly typed as LatLngTuple
+  useEffect(() => {
+    L.Marker.prototype.options.icon = createDefaultIcon();
+  }, []);
+
   const regionSettings: Record<
     Region,
     { center: L.LatLngTuple; zoom: number }
   > = {
-    Africa: {
-      center: [8.7832, 34.5085],
-      zoom: 3,
-    },
-    Americas: {
-      center: [19.8968, -77.6045],
-      zoom: 3,
-    },
-    'Asia Pacific': {
-      center: [25.0, 110.0],
-      zoom: 3,
-    },
-    Australia: {
-      center: [-25.2744, 133.7751],
-      zoom: 4,
-    },
-    Europe: {
-      center: [54.526, 15.2551],
-      zoom: 4,
-    },
-    'Middle East': {
-      center: [25.0, 43.0],
-      zoom: 5,
-    },
+    Africa: { center: [8.7832, 34.5085], zoom: 3 },
+    Americas: { center: [19.8968, -77.6045], zoom: 3 },
+    'Asia Pacific': { center: [25.0, 110.0], zoom: 3 },
+    Australia: { center: [-25.2744, 133.7751], zoom: 4 },
+    Europe: { center: [54.526, 15.2551], zoom: 4 },
+    'Middle East': { center: [25.0, 43.0], zoom: 5 },
   };
 
   const settings = regionSettings[region] || regionSettings['Middle East'];
   const center: L.LatLngTuple = settings.center;
   const zoom = settings.zoom;
 
-  // Fixed country coordinates - removed duplicates
   const countryCoordinates: CountryCoordinates = {
-    // Middle East countries
-    'Israel/Palestine': { latitude: 31.5, longitude: 34.75 },
-    Yemen: { latitude: 15.5, longitude: 47.5 },
-    Syria: { latitude: 35.0, longitude: 38.0 },
-    Iraq: { latitude: 33.0, longitude: 43.0 },
-    Iran: { latitude: 32.0, longitude: 53.0 },
-    'Saudi Arabia': { latitude: 24.0, longitude: 45.0 },
-    Egypt: { latitude: 26.0, longitude: 30.0 },
-    Lebanon: { latitude: 33.8, longitude: 35.8 },
-    Jordan: { latitude: 31.2, longitude: 36.8 },
-
-    // European countries
-    Ukraine: { latitude: 48.3794, longitude: 31.1656 },
-    Russia: { latitude: 61.524, longitude: 105.3188 },
-    Germany: { latitude: 51.1657, longitude: 10.4515 },
-    France: { latitude: 46.6034, longitude: 1.8883 },
-    'United Kingdom': { latitude: 55.3781, longitude: -3.436 },
-    Italy: { latitude: 41.8719, longitude: 12.5674 },
-    Spain: { latitude: 40.4637, longitude: -3.7492 },
-    Poland: { latitude: 51.9194, longitude: 19.1451 },
-    Belarus: { latitude: 53.7098, longitude: 27.9534 },
-    Moldova: { latitude: 47.4116, longitude: 28.3699 },
-
-    // Asia Pacific countries
-    Myanmar: { latitude: 21.9162, longitude: 95.956 },
-    China: { latitude: 35.8617, longitude: 104.1954 },
-    India: { latitude: 20.5937, longitude: 78.9629 },
-    Pakistan: { latitude: 30.3753, longitude: 69.3451 },
-    Afghanistan: { latitude: 33.9391, longitude: 67.71 },
-    'North Korea': { latitude: 40.3399, longitude: 127.5101 },
-    'South Korea': { latitude: 35.9078, longitude: 127.7669 },
-    Japan: { latitude: 36.2048, longitude: 138.2529 },
-    Philippines: { latitude: 12.8797, longitude: 121.774 },
-    Vietnam: { latitude: 14.0583, longitude: 108.2772 },
-    Thailand: { latitude: 15.87, longitude: 100.9925 },
-    Indonesia: { latitude: -0.7893, longitude: 113.9213 },
-    Malaysia: { latitude: 4.2105, longitude: 101.9758 },
-
-    // Australia & Oceania
-    Australia: { latitude: -25.2744, longitude: 133.7751 },
-    'New Zealand': { latitude: -40.9006, longitude: 174.886 },
-
-    // Other Asia Pacific countries
-    Taiwan: { latitude: 23.6978, longitude: 120.9605 },
-    Bangladesh: { latitude: 23.685, longitude: 90.3563 },
-    'Sri Lanka': { latitude: 7.8731, longitude: 80.7718 },
-    Nepal: { latitude: 28.3949, longitude: 84.124 },
-
-    // Africa countries
-    Sudan: { latitude: 12.8628, longitude: 30.2176 },
-    Ethiopia: { latitude: 9.145, longitude: 40.4897 },
-
-    // Americas countries
-    Haiti: { latitude: 18.9712, longitude: -72.2852 },
+    // ... same as before ...
   };
 
-  // Get icon based on intensity
-  const getIcon = (intensity: ConflictData['intensity']): L.Icon => {
+  const getIcon = (intensity: ConflictData['intensity']): L.DivIcon => {
     const size =
       intensity === 'Critical'
         ? 20

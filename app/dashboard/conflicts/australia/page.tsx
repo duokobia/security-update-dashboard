@@ -3,27 +3,56 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { conflictData } from '../../../../lib/mockData';
-import ConflictMap from '@/components/map/ConflictMap';
+import dynamic from 'next/dynamic';
 import Layout from '@/components/layout/Layout';
+
+// Dynamically import ConflictMap to disable SSR (avoids "window is not defined" error)
+const ConflictMap = dynamic(() => import('@/components/map/ConflictMap'), {
+  ssr: false,
+});
 
 export default function AustraliaPage() {
   const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (!isAuthenticated) router.push('/login');
+
+    // Check authentication only on client side
+    const checkAuth = () => {
+      try {
+        const authStatus = localStorage.getItem('isAuthenticated');
+        setIsAuthenticated(!!authStatus);
+
+        if (!authStatus) {
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setIsAuthenticated(false);
+        router.push('/login');
+      }
+    };
+
+    checkAuth();
   }, [router]);
 
-  if (!isClient)
+  const conflicts = conflictData.filter(data => data.zone === 'Australia');
+
+  // Show loading while checking authentication and client state
+  if (!isClient || isAuthenticated === null) {
     return (
       <div className='flex min-h-screen items-center justify-center'>
-        Loading...
+        <div className='text-lg'>Loading...</div>
       </div>
     );
+  }
 
-  const conflicts = conflictData.filter(data => data.zone === 'Africa');
+  // If not authenticated, redirect will already be in progress
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Layout>
@@ -32,6 +61,7 @@ export default function AustraliaPage() {
           <h1 className='mb-8 text-3xl font-bold text-gray-900'>
             Australia Conflicts
           </h1>
+
           {/* Map Section */}
           <div className='mb-8'>
             <h2 className='mb-4 text-xl font-semibold text-gray-800'>
@@ -56,6 +86,8 @@ export default function AustraliaPage() {
               </div>
             </div>
           </div>
+
+          {/* Conflicts List */}
           <div className='grid grid-cols-1 gap-6'>
             {conflicts.map(conflict => (
               <div
@@ -69,9 +101,12 @@ export default function AustraliaPage() {
                     </h3>
                     <span
                       className={`inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium ${
-                        conflict.intensity === 'High'
+                        conflict.intensity === 'High' ||
+                        conflict.intensity === 'Critical'
                           ? 'bg-red-100 text-red-800'
-                          : 'bg-yellow-100 text-yellow-800'
+                          : conflict.intensity === 'Medium'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-green-100 text-green-800'
                       }`}
                     >
                       {conflict.intensity} Intensity

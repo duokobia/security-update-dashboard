@@ -4,26 +4,54 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/layout/Layout';
 import { conflictData } from '@/lib/mockData';
-import ConflictMap from '@/components/map/ConflictMap';
+import dynamic from 'next/dynamic';
+
+// Disable SSR for the ConflictMap component only
+const ConflictMap = dynamic(() => import('@/components/map/ConflictMap'), {
+  ssr: false,
+  loading: () => (
+    <div className='flex h-96 animate-pulse items-center justify-center rounded-lg bg-gray-200'>
+      <div className='text-gray-600'>Loading map...</div>
+    </div>
+  ),
+});
 
 export default function EuropePage() {
   const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (!isAuthenticated) router.push('/login');
+
+    const checkAuth = () => {
+      try {
+        const authStatus = localStorage.getItem('isAuthenticated');
+        setIsAuthenticated(!!authStatus);
+        if (!authStatus) router.push('/login');
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+        setIsAuthenticated(false);
+        router.push('/login');
+      }
+    };
+
+    checkAuth();
   }, [router]);
 
-  if (!isClient)
+  const conflicts = conflictData.filter(data => data.zone === 'Europe');
+
+  if (!isClient || isAuthenticated === null) {
     return (
       <div className='flex min-h-screen items-center justify-center'>
-        Loading...
+        <div className='text-lg'>Loading...</div>
       </div>
     );
+  }
 
-  const conflicts = conflictData.filter(data => data.zone === 'Europe');
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Layout>

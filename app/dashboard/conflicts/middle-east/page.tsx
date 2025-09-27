@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { conflictData } from '@/lib/mockData';
 import Layout from '@/components/layout/Layout';
-import ConflictMap from '@/components/map/ConflictMap';
+import dynamic from 'next/dynamic';
+
+// 💡 Dynamically import ConflictMap without SSR
+const ConflictMap = dynamic(() => import('@/components/map/ConflictMap'), {
+  ssr: false,
+});
 
 export default function MiddleEastPage() {
   const [isClient, setIsClient] = useState(false);
@@ -12,7 +17,6 @@ export default function MiddleEastPage() {
 
   useEffect(() => {
     setIsClient(true);
-
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (!isAuthenticated) {
       router.push('/login');

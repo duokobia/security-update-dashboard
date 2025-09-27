@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import 'leaflet/dist/leaflet.css';
 
 :root {
@@ -38,4 +38,14 @@ body {
 
 .leaflet-popup-content-wrapper {
   border-radius: 8px;
+}
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
 }

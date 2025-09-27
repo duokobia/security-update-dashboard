@@ -2,28 +2,54 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic'; // Import dynamic
 import { conflictData } from '../../../../lib/mockData';
-import ConflictMap from '@/components/map/ConflictMap';
 import Layout from '@/components/layout/Layout';
+
+// 🔧 Dynamically import ConflictMap to disable SSR
+const ConflictMap = dynamic(() => import('@/components/map/ConflictMap'), {
+  ssr: false,
+});
 
 export default function AfricaPage() {
   const [isClient, setIsClient] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (!isAuthenticated) router.push('/login');
+
+    const checkAuth = () => {
+      try {
+        const authStatus = localStorage.getItem('isAuthenticated');
+        setIsAuthenticated(!!authStatus);
+
+        if (!authStatus) {
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setIsAuthenticated(false);
+        router.push('/login');
+      }
+    };
+
+    checkAuth();
   }, [router]);
 
-  if (!isClient)
+  const conflicts = conflictData.filter(data => data.zone === 'Africa');
+
+  if (!isClient || isAuthenticated === null) {
     return (
       <div className='flex min-h-screen items-center justify-center'>
-        Loading...
+        <div className='text-lg'>Loading...</div>
       </div>
     );
+  }
 
-  const conflicts = conflictData.filter(data => data.zone === 'Africa');
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Layout>
@@ -32,6 +58,7 @@ export default function AfricaPage() {
           <h1 className='mb-8 text-3xl font-bold text-gray-900'>
             Africa Conflicts
           </h1>
+
           {/* Map Section */}
           <div className='mb-8'>
             <h2 className='mb-4 text-xl font-semibold text-gray-800'>
@@ -56,6 +83,8 @@ export default function AfricaPage() {
               </div>
             </div>
           </div>
+
+          {/* Conflicts List */}
           <div className='grid grid-cols-1 gap-6'>
             {conflicts.map(conflict => (
               <div
@@ -69,9 +98,12 @@ export default function AfricaPage() {
                     </h3>
                     <span
                       className={`inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium ${
-                        conflict.intensity === 'High'
+                        conflict.intensity === 'High' ||
+                        conflict.intensity === 'Critical'
                           ? 'bg-red-100 text-red-800'
-                          : 'bg-yellow-100 text-yellow-800'
+                          : conflict.intensity === 'Medium'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-green-100 text-green-800'
                       }`}
                     >
                       {conflict.intensity} Intensity
