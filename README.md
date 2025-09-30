@@ -4,6 +4,10 @@ A comprehensive, real-time dashboard for monitoring and analyzing global securit
 
 ## Dashboard Preview
 
+Marketing page:
+[marketing page.webm](https://github.com/user-attachments/assets/2bb5371f-beea-41a3-8ed9-a8f9c8642c25)
+
+Dashboard:
 [security-update-dashboard.webm](https://github.com/user-attachments/assets/118610f7-c6d9-4509-8df7-f48900543083)
 
 ## Live Website
