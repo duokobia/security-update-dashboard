@@ -129,12 +129,12 @@ export default function AuthForm() {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8'>
-      <div className='w-full max-w-md space-y-8'>
+    <div className='flex items-center justify-center bg-transparent px-4 pt-8 pb-12 sm:px-6 lg:px-8'>
+      <div className='w-full max-w-md space-y-8 rounded-lg bg-white/70 p-8 shadow-xl backdrop-blur-md'>
         <div>
           <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
             {mode === 'login'
-              ? 'Sign in to your account'
+              ? 'Log in to your account'
               : 'Create a new account'}
           </h2>
           <p className='mt-2 text-center text-sm text-gray-600'>
@@ -155,7 +155,7 @@ export default function AuthForm() {
               }
               className='font-medium text-blue-600 hover:text-blue-500 focus:outline-none'
             >
-              {mode === 'login' ? 'Sign up' : 'Sign in'}
+              {mode === 'login' ? 'Sign up' : 'Log in'}
             </button>
           </span>
         </div>
@@ -179,7 +179,7 @@ export default function AuthForm() {
                   type='text'
                   autoComplete='name'
                   required
-                  className='relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm'
+                  className='bg-opacity-90 relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm'
                   placeholder='Full Name'
                   value={name}
                   onChange={e => setName(e.target.value)}
@@ -197,7 +197,7 @@ export default function AuthForm() {
                 type='email'
                 autoComplete='email'
                 required
-                className={`relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm ${
+                className={`bg-opacity-90 relative block w-full appearance-none border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm ${
                   mode === 'register'
                     ? 'rounded-none'
                     : 'rounded-none rounded-t-md'
@@ -220,7 +220,7 @@ export default function AuthForm() {
                   mode === 'login' ? 'current-password' : 'new-password'
                 }
                 required
-                className={`relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm ${
+                className={`bg-opacity-90 relative block w-full appearance-none border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm ${
                   mode === 'register' && confirmPassword
                     ? 'rounded-none'
                     : mode === 'login'
@@ -244,7 +244,7 @@ export default function AuthForm() {
                   type='password'
                   autoComplete='new-password'
                   required
-                  className='relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm'
+                  className='bg-opacity-90 relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 bg-white px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm'
                   placeholder='Confirm Password'
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
@@ -258,7 +258,7 @@ export default function AuthForm() {
             <button
               type='submit'
               disabled={loading}
-              className='group relative flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50'
+              className='group relative flex w-full justify-center rounded-md border border-transparent bg-sky-800 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50'
             >
               {loading ? (
                 <span className='flex items-center'>
@@ -282,10 +282,10 @@ export default function AuthForm() {
                       d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
                     ></path>
                   </svg>
-                  {mode === 'login' ? 'Signing in...' : 'Creating account...'}
+                  {mode === 'login' ? 'Loging in...' : 'Creating account...'}
                 </span>
               ) : mode === 'login' ? (
-                'Sign in'
+                'Log in'
               ) : (
                 'Create account'
               )}
