@@ -4,46 +4,42 @@ A comprehensive, real-time dashboard for monitoring and analyzing global securit
 
 ## Dashboard Preview
 
-Marketing page:
-[marketing page.webm](https://github.com/user-attachments/assets/2bb5371f-beea-41a3-8ed9-a8f9c8642c25)
-
-Dashboard:
 [security-update-dashboard.webm](https://github.com/user-attachments/assets/118610f7-c6d9-4509-8df7-f48900543083)
 
 ## Live Website
 
 Please register and log into the live website: https://security-update-dashboard.vercel.app/login
 
-## 🌟 Features
+## Features
 
-### 📊 **Interactive Dashboard**
+### **Interactive Dashboard**
 
 - **Global Overview**: Summary cards with total conflicts, casualties, and intensity metrics
 - **Regional Analysis**: Dedicated pages for Middle East, Europe, Asia Pacific, Africa, and Americas
 - **Real-time Data**: Dynamic filtering and search capabilities
 
-### 🗺️ **Geospatial Visualization**
+### **Geospatial Visualization**
 
 - **Interactive Maps**: Leaflet-based conflict mapping with OpenStreetMap integration
 - **Region-specific Centering**: Automatic map positioning based on selected region
 - **Intensity-based Markers**: Color-coded pins (Red=High, Yellow=Medium, Green=Low)
 - **Popup Details**: Click markers for conflict information and statistics
 
-### 🔍 **Advanced Data Management**
+### **Advanced Data Management**
 
 - **Smart Filtering**: Filter by region, conflict intensity, and type
 - **Full-Text Search**: Search across countries, conflict types, and descriptions
 - **Multi-column Sorting**: Sort by country, region, intensity, date, or casualties
 - **Pagination**: Configurable rows per page (5, 10, 20, 50, 100) with smart navigation
 
-### 📱 **Modern UX/UI**
+### **Modern UX/UI**
 
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **Professional Styling**: Tailwind CSS with clean, accessible interface
 - **Type Safety**: Full TypeScript implementation
 - **Authentication**: Secure login system with route protection
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -86,7 +82,7 @@ npm run build
 npm start
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 
@@ -133,7 +129,7 @@ security-update-dashboard/
 
 ```
 
-## 🎯 Key Components
+## Key Components
 
 ### ConflictMap Component
 
@@ -160,7 +156,7 @@ Each region page includes:
 - Intensity-based color coding
 - Detailed conflict information
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -180,7 +176,7 @@ Edit `lib/mockData.ts` to:
 - Update regional statistics
 - Extend time series data
 
-## 🎨 Customization
+## Customization
 
 ### Styling
 
@@ -197,7 +193,7 @@ The project uses Tailwind CSS. Key customization points:
 3. Create new page in `app/[region]/`
 4. Update filter options in data table
 
-## 📊 API Integration (Future)
+## API Integration (Future)
 
 The dashboard is designed for easy API integration:
 
@@ -209,7 +205,7 @@ const fetchLiveData = async () => {
 };
 ```
 
-## 🛠️ Development Scripts
+## Development Scripts
 
 ```bash
 npm run dev          # Development server
@@ -219,7 +215,7 @@ npm run lint         # Code linting
 npm run type-check   # TypeScript validation
 ```
 
-## 📋 TODO & Roadmap
+## TODO & Roadmap
 
 - [ ] **Real-time Data Integration** - Connect to live conflict APIs
 - [ ] **Advanced Analytics** - Add charts and trend analysis
@@ -229,7 +225,7 @@ npm run type-check   # TypeScript validation
 - [ ] **Notification System** - Alert for new conflicts
 - [ ] **Historical Data** - Conflict timeline visualization
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **OpenStreetMap** for free map tiles
 - **Leaflet** for interactive mapping
